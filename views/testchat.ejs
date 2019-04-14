@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Demo chat test</title>
+        <script src="/libs/jquery-3.4.0.min.js"></script>
+        <script src="socket.io/socket.io.js"></script>
+        <script>
+            let socket = io("http://localhost:3000");
+            //receive socket ID when connect
+            socket.on("S-send-socketID", skID=>{$(`h1`).text("Hello "+skID)});
+
+            //client receive from server
+            socket.on("S-send-data-all",(data)=>{
+                $('#content').append(`<h2>${data}</h2>`);
+            });
+            $(document).ready(function(){
+                //alert('test libs');
+                $('#sendDat').click(function(){
+                    
+                    socket.emit("C-send-data","emit test");
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Hello Hoang duy</h1>
+        <div id="sendDat">Send data</div>
+        <div id="content"></div>
+    </body>
+</html>
