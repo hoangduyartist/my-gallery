@@ -1,6 +1,6 @@
 
-let socket = io("http://localhost:3000" || "https://duynh-my-chat.herokuapp.com/");
-// let socket = io("https://duynh-my-chat.herokuapp.com/");
+//let socket = io("http://localhost:3000" || "https://duynh-my-chat.herokuapp.com/");
+let socket = io("https://duynh-my-chat.herokuapp.com/");
 let usr = {}
 
 socket.on('C-register-failed',()=>{
