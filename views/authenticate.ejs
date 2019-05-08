@@ -1,0 +1,126 @@
+<!--A Design by W3layouts 
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>stylish Sign in and Sign up Form A Flat Responsive widget Template :: w3layouts</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords"
+		content="stylish Sign in and Sign up Form A Flat Responsive widget, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<script
+		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!--online_fonts-->
+	<link href="//fonts.googleapis.com/css?family=Sansita:400,400i,700,700i,800,800i,900,900i&amp;subset=latin-ext"
+		rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+	<!--//online_fonts-->
+	<link href="styles/authenticate.css" rel='stylesheet' type='text/css' media="all" />
+	<!--stylesheet-->
+</head>
+
+<body>
+	<div style="">
+		<% if(isReg) { %>
+		<% if(!regSuccess) { %>
+		<h1
+			style="color:#a94442!important; background-color: rgba(20, 21, 22, 0.52); padding:10px 10px; text-align:center;">
+			Register failed. Click <span id="re-reg"><a href="#signup-agile">here</a></span> to register again !</h1>
+		<% } else { %>
+		<h1
+			style="color:#09ad09!important; background-color: rgba(20, 21, 22, 0.52); padding:10px 10px; text-align:center;">
+			Register success</h1>
+		<% } %>
+		<% } %>
+	</div>
+	<h1>Sign in and Sign up</h1>
+	<div class="form-w3ls">
+		<div class="form-head-w3l">
+			<h2>s</h2>
+		</div>
+		<ul class="tab-group cl-effect-4">
+			<li id="login-tab" class="tab active"><a href="#signin-agile">Sign In</a></li>
+			<li id="reg-tab" class="tab"><a href="#signup-agile">Sign Up</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="signin-agile">
+				<form action="/login" method="post">
+
+					<p class="header">User Name</p>
+					<input type="text" name="name" placeholder="User Name" onfocus="this.value = '';"
+						onblur="if (this.value == '') {this.value = 'User Name';}" required="required">
+
+					<p class="header">Password</p>
+					<input type="password" name="password" placeholder="Password" onfocus="this.value = '';"
+						onblur="if (this.value == '') {this.value = 'Password';}" required="required">
+					<% if(!isReg) { %>
+					<% if(!loginSuccess) { %>
+						<p style="color:brown; margin-bottom: 10px;">User name or Password is incorrect !</p>
+					<% } %>
+
+					<% } %>
+					<input type="checkbox" id="brand" value="">
+					<label for="brand"><span></span> Remember me?</label>
+
+					<input type="submit" class="sign-in" value="Sign In">
+				</form>
+			</div>
+			<div id="signup-agile">
+				<form id="reg-form" action="/register" method="post"
+					onsubmit="event.preventDefault(); validateRegForm();">
+					<p class="header">Full Name</p>
+					<input type="text" name="fullname" placeholder="Your Full Name" onfocus="this.value = '';"
+						onblur="if (this.value == '') {this.value = 'Your Full Name';}" required="required">
+
+					<p class="header">User Name</p>
+					<input type="text" name="name" placeholder="User Name" onfocus="this.value = '';"
+						onblur="if (this.value == '') {this.value = 'User Name';}" required="required">
+
+					<p class="header">Email Address</p>
+					<input type="email" name="email" placeholder="Email" >
+
+					<p class="header">Password</p>
+					<input type="password" name="password" placeholder="Password" onfocus="this.value = '';"
+						onblur="if (this.value == '') {this.value = 'Password';}" required="required">
+
+					<p class="header">Confirm Password</p>
+					<input type="password" name="passwordConf" placeholder="Confirm Password" onfocus="this.value = '';"
+						onblur="if (this.value == '') {this.value = 'Confirm Password';}" required="required">
+					<p id="passwordConf_err" style="color:brown;"></p>
+
+					<input type="submit" class="register" value="Sign up">
+				</form>
+			</div>
+		</div><!-- tab-content -->
+	</div> <!-- /form -->
+	<br/>
+	<br/>
+	<!-- <p class="copyright">&copy; 2018 stylish sign in and sign up Form. All Rights Reserved | Design by <a
+			href="https://w3layouts.com/" target="_blank">w3layouts</a></p> -->
+	<!-- js files -->
+	<script src='libs/jquery-3.4.0.min.js'></script>
+	<script>
+		// $(document).ready(function () {
+		var passWordField = $("#reg-form input[name~='password']");
+		var passWordConfirmField = $("#reg-form input[name~='passwordConf']");
+		var form = document.getElementById('reg-form');
+		function validateRegForm() {
+			if (passWordField.val() != passWordConfirmField.val()) {
+				// alert("Passwords do not match. Please try again.");
+				$('#reg-form #passwordConf_err').text("Passwords do not match. Please try again.");
+			} else {
+				form.submit();
+			}
+		}
+	// });
+	</script>
+	<script src="actions/authenticate.js"></script>
+	<!-- /js files -->
+</body>
+
+</html>
