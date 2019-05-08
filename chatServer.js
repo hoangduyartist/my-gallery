@@ -21,8 +21,8 @@ app.use(bodyParser.urlencoded({ extended: false }) );
 app.use(session({secret: "secretSessionTest", resave:false, saveUninitialized:true}));
 // check login middleware
 // ....
-// server.listen(process.env.PORT || 3000);
-server.listen(3000);
+server.listen(process.env.PORT || 3000);
+// server.listen(3000);
 
 //store
 // {name:'admin', avaLink:'abc'}
