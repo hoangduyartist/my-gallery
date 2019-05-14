@@ -1,6 +1,7 @@
 var bcrypt = require('bcrypt');
 var mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     fullname: {
         type: String,
         required: true
@@ -15,6 +16,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         // minlength : [4, 'at least 4 char']
     },
+    avatar: {type:String, default:'images/ava-default.jpg'},
     age: {
         type: Number,
         //required: true

@@ -18,95 +18,36 @@
     <link rel="stylesheet" type="text/css" href="libs/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
     <link rel="stylesheet" type="text/css" href="libs/fancybox/options/jquery.fancybox-buttons.css?v=1.0.5" />
     <link rel="stylesheet" type="text/css" href="libs/fancybox/options/jquery.fancybox-thumbs.css?v=1.0.7" />
-
     <!-- <link rel="stylesheet" href="/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" /> -->
     <!-- end fancy box -->
     <style>
         .carousel {
             height: 280px;
         }
+
         .carousel-item>img {
             /* width: 200px; */
             height: 100%;
         }
+
         .carousel .indicators {
             bottom: 10%;
         }
-        .indicator-item {padding:5px}
+
+        .indicator-item {
+            padding: 5px
+        }
+
     </style>
+    <link rel="stylesheet" type="text/css" href="styles/gallery.css" />
     <title>Node File Uploads</title>
 </head>
 
 <body class="teal lighten-5">
 
-    <div class="container">
-        <section style="padding: 20px;" class="z-depth-4 grey lighten-4">
-            <h2>File Upload</h2>
-            <!-- <%= typeof msg != 'undefined' ? msg : '' %> -->
-            <form action="/upload" method="POST" enctype="multipart/form-data">
-                <div class="file-field input-field">
-                    <div class="btn grey">
-                        <span>File</span>
-                        <input name="myImage" type="file">
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text" placeholder="Your image"
-                            value="<%= typeof msg != 'undefined' ? msg : '' %>">
-                    </div>
-                </div>
-                <div style="margin-top:0" class="input-field col s12">
-                    <i class="material-icons prefix">textsms</i>
-                    <input type="text" id="autocomplete-input" class="autocomplete" name="description">
-                    <label for="autocomplete-input">Description</label>
-                </div>
-                <button id="upload-btn" type="submit" class="btn">Submit<i
-                        class="material-icons right">send</i></button>
-                <a href="/" class="btn right">Refresh<i class="material-icons right">autorenew</i></a>
-            </form>
-        </section>
-        <br>
-        <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img"/>
-        <div class="divider"></div>
-        <div class="section">
-            <h3 style="margin:0;" class="center">Let us see your pictures</h3>
-            <div class="carousel">
-                <% /* %>
-                <% if (typeof msg != 'undefined' ) { %>
-                <% if (msg == 'File Uploaded!' || msg == 'loaded') { %>
-                <% if (typeof images != 'undefined') { %>
-                <% images.forEach((img)=> { %>
-                <!-- <a class="carousel-item fancybox" href="<%= img.path %>"><img src="<%= img.path %>"></a> -->
-                <!-- <a class="carousel-item fancybox" href="#two!"><img src="https://lorempixel.com/250/250/nature/2"></a> -->
-                <% }) %>
-                <% } %>
-                <% } %>
-                <% } else msg='' %>
-                <% */ %>
-                <a class="carousel-item fancybox" href="images/background.jpg"><img src="images/background.jpg"></a>
-                <a class="carousel-item fancybox" href="https://lorempixel.com/250/250/nature/2"><img src="https://lorempixel.com/250/250/nature/2"></a>
-                <a class="carousel-item fancybox" href="https://lorempixel.com/250/250/nature/3"><img src="https://lorempixel.com/250/250/nature/3"></a>
-                <a class="carousel-item fancybox" href="https://lorempixel.com/250/250/nature/4"><img src="https://lorempixel.com/250/250/nature/4"></a>
-                <a class="carousel-item fancybox" href="https://lorempixel.com/250/250/nature/5"><img src="https://lorempixel.com/250/250/nature/5"></a>
-            </div>
-        </div>
-        <div class="divider"></div>
-        <div class="section">
-
-            <div id="imgCard" class="row">
-
-                <% if (typeof msg != 'undefined' ) { %>
-                <% if (msg == 'File Uploaded!' || msg == 'loaded') { %>
-                <% if (typeof images != 'undefined') { %>
-                <% images.forEach((img)=> { %>
-                <%- include('components/imgCard', {img:img}) %>
-                <% }) %>
-                <% } %>
-                <% } %>
-                <% } else msg='' %>
-
-            </div>
-        </div>
-    </div>
+    <%- include('components/navbar/navtop') %>
+    <%# body %>
+    <%- include('components/userhome/userHome') %>
 
     <script type="text/javascript" src="libs/jquery-3.4.0.min.js"></script>
     <!-- materialize -->
@@ -119,7 +60,8 @@
     <script type="text/javascript" src="libs/fancybox/jquery.fancybox.js?v=2.1.5"></script>
     <script type="text/javascript" src="libs/fancybox/options/jquery.fancybox-buttons.js?v=1.0.5"></script>
     <script type="text/javascript" src="libs/fancybox/options/jquery.fancybox-thumbs.js?v=1.0.7"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <!-- end fancybox -->
     <script src="actions/myGallery.js"></script>
     <script></script>

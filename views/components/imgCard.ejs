@@ -13,21 +13,35 @@
 </div> -->
 
 <!-- type2 -->
-<div class="col s6 m4 l3">
-<div class="card grey lighten-4 z-depth-3">
-    <div class="card-image waves-effect waves-block waves-light">
-        <a href="<%= img.path %>" class="fancybox"><img class="activator" src="<%= img.path %>" /></a>
+<style>
+    .imgCard-tools {
+        text-align: right;
+        letter-spacing: 8px;
+    }
+    .imgCard-tools a {
+        cursor: pointer;
+    }
+</style>
+<div class="">
+    <div class="card grey lighten-4 z-depth-3">
+        <div class="card-image waves-effect waves-block waves-light">
+            <a href="<%= img.path %>" class="fancybox"><img class="activator" src="<%= img.path %>" /></a>
+        </div>
+        <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">Card Title<i
+                    class="material-icons right">more_vert</i></span>
+            <p><a href="<%= img.path %>" class="fancybox">Full size</a></p>
+        </div>
+        <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+            <p><%= img.description%></p>
+            <p>Here is some default descriptions.</p>
+            <p>Here is some default descriptions.</p>
+            <div class="imgCard-tools">
+                <a class=""><i style="color:orange;" class="material-icons">edit</i></a>
+                <a class="" href="/del-img/<%= img._id %>.<%= key %>"><i style="color:red;" class="material-icons">delete_forever</i></a>
+            </div>
+
+        </div>
     </div>
-    <div class="card-content">
-        <span class="card-title activator grey-text text-darken-4">Card Title<i
-                class="material-icons right">more_vert</i></span>
-        <p><a href="<%= img.path %>" class="fancybox">Full size</a></p>
-    </div>
-    <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-        <p><%= img.description%></p>
-        <p>Here is some more information about this product and options that is only revealed once clicked on.</p>
-        <a class="btn "></a>
-    </div>
-</div>
 </div>

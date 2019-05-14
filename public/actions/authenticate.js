@@ -49,3 +49,8 @@ $('#re-reg a').on('click', function(e){
   $('.tab-content > div').not(target).hide();
   $(target).fadeIn(600);
 })
+
+$('#sign-in-btn-test').on('click',()=>{
+  $('#sign-in-btn-test').html(`<div class="lds-dual-ring"></div>`);
+  // $('#sign-in-btn-test').html(`<div class="lds-ripple"><div></div><div></div></div>`);
+})

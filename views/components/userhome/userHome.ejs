@@ -1,0 +1,80 @@
+<div class="container">
+
+    <div class="row">
+
+        <div style="padding-top:8px;" class="col m4">
+            <%- include('userInfo')%>
+        </div>
+
+        <div class="col m8">
+            <!-- <div class="section">
+                <%#include('../introSlider')%>
+            </div> -->
+            <div class="section">
+                <%- include('postFormMultiple') %>
+            </div>
+            <br />
+            <div class="section">
+                <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img" />
+            </div>
+
+            <div style="padding-top:0;" class="section">
+
+                <div id="imgCard" class="row">
+
+                    <% if (typeof msg != 'undefined' ) { %>
+                    <% if (msg == 'File Uploaded!' || msg == 'loaded') { %>
+                    <% if (typeof images != 'undefined') { %>
+                    <% images.forEach((img,key)=> { %>
+                    <div class="col s6 m4">
+                        <%- include('../imgCard', {img:img, key}) %>
+                    </div>
+                    <% }) %>
+                    <% } %>
+                    <% } %>
+                    <% } else msg='' %>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- <section style="padding: 20px;" class="z-depth-4 grey lighten-4">
+        <h2>File Upload</h2>
+        <%# typeof msg != 'undefined' ? msg : '' %>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <div class="file-field input-field">
+                <div class="btn grey">
+                    <span>File</span>
+                    <input name="myImage" type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Your image"
+                        value="<%= typeof msg != 'undefined' ? msg : '' %>">
+                </div>
+            </div>
+            <div style="margin-top:0" class="input-field col s12">
+                <i class="material-icons prefix">textsms</i>
+                <input type="text" id="autocomplete-input" class="autocomplete" name="description">
+                <label for="autocomplete-input">Description</label>
+            </div>
+            <button id="upload-btn" type="submit" class="btn">Submit<i class="material-icons right">send</i></button>
+            <a href="/" class="btn right">Refresh<i class="material-icons right">autorenew</i></a>
+        </form>
+    </section> -->
+
+</div>
+
+<!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+    <button data-target="modal1" class="btn modal-trigger">Modal</button>
+    
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div> -->

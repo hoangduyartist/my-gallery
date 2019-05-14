@@ -1,1 +1,1 @@
-web: node chatServer.js
+web: node myGallery.js

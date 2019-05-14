@@ -26,15 +26,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <body>
 	<div style="">
-		<% if(isReg) { %>
-		<% if(!regSuccess) { %>
+		<% if(typeof status != 'undefined') { %>
+		<% if(status == 'register') { %>
+		<% if(msg == 'Register failed !') { %>
 		<h1
 			style="color:#a94442!important; background-color: rgba(20, 21, 22, 0.52); padding:10px 10px; text-align:center;">
 			Register failed. Click <span id="re-reg"><a href="#signup-agile">here</a></span> to register again !</h1>
-		<% } else { %>
+		<% } else  { %>
 		<h1
 			style="color:#09ad09!important; background-color: rgba(20, 21, 22, 0.52); padding:10px 10px; text-align:center;">
 			Register success</h1>
+		<% } %>
 		<% } %>
 		<% } %>
 	</div>
@@ -58,18 +60,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<p class="header">Password</p>
 					<input type="password" name="password" placeholder="Password" onfocus="this.value = '';"
 						onblur="if (this.value == '') {this.value = 'Password';}" required="required">
-					<% if(!isReg) { %>
-					<% if(!loginSuccess) { %>
-						<p style="color:brown; margin-bottom: 10px;">User name or Password is incorrect !</p>
-					<% } %>
 
-					<% } %>
+					<p style="color:brown; margin-bottom: 20px;">
+						<%= typeof status != 'undefined' ? status=='login' ? msg : '' : '' %>
+					</p>
+
 					<input type="checkbox" id="brand" value="">
 					<label for="brand"><span></span> Remember me?</label>
 
-					<input type="submit" class="sign-in" value="Sign In">
+					<button id="sign-in-btn" type="submit" class="sign-in">Sign In</button>
 				</form>
+				<!-- <button id="sign-in-btn-test" class="sign-in">test Sign In load</button> -->
 			</div>
+
 			<div id="signup-agile">
 				<form id="reg-form" action="/register" method="post"
 					onsubmit="event.preventDefault(); validateRegForm();">
@@ -82,7 +85,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						onblur="if (this.value == '') {this.value = 'User Name';}" required="required">
 
 					<p class="header">Email Address</p>
-					<input type="email" name="email" placeholder="Email" >
+					<input type="email" name="email" placeholder="Email">
 
 					<p class="header">Password</p>
 					<input type="password" name="password" placeholder="Password" onfocus="this.value = '';"
@@ -98,8 +101,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 		</div><!-- tab-content -->
 	</div> <!-- /form -->
-	<br/>
-	<br/>
+	<br />
+	<br />
 	<!-- <p class="copyright">&copy; 2018 stylish sign in and sign up Form. All Rights Reserved | Design by <a
 			href="https://w3layouts.com/" target="_blank">w3layouts</a></p> -->
 	<!-- js files -->
@@ -114,7 +117,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				// alert("Passwords do not match. Please try again.");
 				$('#reg-form #passwordConf_err').text("Passwords do not match. Please try again.");
 			} else {
-				form.submit();
+
+				form.submit(()=>{
+					// alert('before submit');
+					// setTimeout(()=>{console.log('before submit');},1000)
+					
+					// $('#sign-in-btn').on('click', () => {
+					// 	$('#sign-in-btn').html(`<div class="lds-dual-ring"></div>`);
+					// });
+					return true;
+				});
 			}
 		}
 	// });
