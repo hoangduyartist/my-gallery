@@ -61,8 +61,7 @@ app.post('/login', function (req, res, next) {
                 req.session.userID = data.session;
                 req.session.userProfile = data.user;
                 // currentUser = userFound._id;
-                return res.redirect('/myHome');
-                return res.send(data);
+                return res.redirect('/myhome');
             }
 
             return res.render('pages/authenticate', { status: 'login', msg: data.msg });
@@ -95,6 +94,7 @@ app.get('/myhome', (req, res) => {
 
         await postService.fetchWithUser(req.session.userID)
         .then(data=>{
+            console.log(data.posts);
             posts=data.posts;
         })
         .catch(err=>console.log(err))
@@ -103,6 +103,17 @@ app.get('/myhome', (req, res) => {
     fetch();
     
 });
+
+app.get('/home', (req,res)=>{
+    postService.fetchAll()
+    .then(data=>{
+        if(data.posts){
+            return res.render('components/home/galleryHome', {user: req.session.userProfile, msg: 'public-post loaded', posts: posts });
+        }
+    })
+    .catch(err=>console.log(err))
+
+})
 
 
 let path = require("path");
@@ -236,18 +247,13 @@ app.get('/share-img/:imgID.:key', (req, res) => {
             type : 'image',
             description : 'you have shared an image.',
             content: images[req.params.key],
-            //  {
-            //     object: 'image',
-            //     image: images[req.params.key].path,
-            //     description: images[req.params.key].description
-            // }
         }
         posts.push(post);
 
         postService.createImg(post)
         .then(data=>{
             if(data.newPost){
-                console.log(data.msg);
+                // console.log(data.msg);
                 res.redirect('/myhome');
             }else {
 
@@ -258,7 +264,27 @@ app.get('/share-img/:imgID.:key', (req, res) => {
         // res.redirect('/myhome');
     });
 
-    // res.send('deleted '+req.params.imgID+'with key '+req.params.key);
+})
+
+app.post('/upload-stt',(req,res)=>{
+    let post = {
+
+        _id: mongoose.Types.ObjectId(),
+        userID: req.session.userID,
+        type : 'status',
+        description : req.body.description,
+        content: {},
+    }
+    posts.push(post);
+
+    postService.createStt(post)
+    .then(data=>{
+        if(data.newPost){
+            return res.redirect('/myhome');
+        }
+    })
+    .catch(err=>console.log(err))
+
 })
 
 module.exports = app;

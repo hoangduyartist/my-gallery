@@ -5,7 +5,9 @@ const Post = require("../models/post");
 
 module.exports = {
     createImg,
+    createStt,
     fetchWithUser,
+    fetchAll,
     del,
     share,
     createImg
@@ -17,7 +19,23 @@ async function createImg(postParams){
         _id: postParams._id,
         userID: postParams.userID,
         type:'image',
-        description: 'you have shared ',
+        description: postParams.description,
+        content:postParams.content,
+    });
+    // save img
+    const newPost = await post.save();
+    if(newPost)
+    return ({newPost:newPost, msg:'Post successful!'})
+    return ({msg: 'Post failed !'})
+}
+
+async function createStt(postParams){
+
+    const post = new Post({
+        _id: postParams._id,
+        userID: postParams.userID,
+        type:'status',
+        description: postParams.description,
         content:postParams.content,
     });
     // save img
@@ -37,6 +55,15 @@ async function fetchWithUser(userID){
     return ({msg: 'you have no post.'})
 }
 
+async function fetchAll(){
+    // console.log(userID);
+    let posts = await Post.find({})
+    if(posts) {
+        return ({posts:posts, msg: 'All-post loaded'});
+    }
+    return ({msg: 'we have no post.'})
+}
+
 async function del(imgID){
 
     if(await Image.findByIdAndRemove(imgID)) {
@@ -48,9 +75,4 @@ async function del(imgID){
 
 async function share(imgID){
 
-    // if(await Image.findById(imgID)) {
-        
-    // }
-
-    // return ({msg: 'No image is deleted.'})
 }

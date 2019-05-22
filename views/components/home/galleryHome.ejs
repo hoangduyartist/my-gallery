@@ -1,0 +1,30 @@
+<% layout('../../pages/main') %>
+<div class="container">
+    <div class="row">
+        <div class="col m3">
+            <%-partial('leftOptions')%>
+        </div>
+        <div class="col m6">
+            <!-- introSlider -->
+            <div class="section"><%-partial('postSttForm')%></div>
+            <div class="section">
+                <div class="row">
+                    <div class="col s12">
+                        <%- partial('postCard') %>
+                    </div>
+                    <% if(typeof posts != 'undefined') { %>
+                    <% posts.forEach((post,key)=> { %>
+                    <div class="col s12">
+                        <%- partial('../cards/interCard',{post:post,key}) %>
+                    </div>
+                    <% }) %>
+
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <div class="col m3">
+            <%-partial('rightOptions')%>
+        </div>
+    </div>
+</div>

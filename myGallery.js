@@ -30,8 +30,8 @@ app.use(galleryRouters);
 let PORT = process.env.PORT || 3000;
 server.listen(PORT,'127.0.0.1');
 
-let urlMongo = "mongodb://localhost:27017/node_chat";
-// let urlMongo = process.env.MONGO_URI || "mongodb+srv://hoangduy:hoangduy@cluster0-a0ada.mongodb.net/test?retryWrites=true";
+// let urlMongo = "mongodb://localhost:27017/node_chat";
+let urlMongo = process.env.MONGO_URI || "mongodb+srv://hoangduy:hoangduy@cluster0-a0ada.mongodb.net/test?retryWrites=true";
 mongoose.Promise = global.Promise;
 mongoose.connect(urlMongo, { useNewUrlParser: true }).then(
     (rs) => {
@@ -43,4 +43,11 @@ mongoose.connect(urlMongo, { useNewUrlParser: true }).then(
 
 app.get('/testUI', (req,res)=>{
     res.render('components/cards/interCard');
+})
+
+app.get('/usr',(req,res)=>{
+    let user = require('./models/user');
+    user.find({})
+    .then(usr=>res.send(usr))
+    .catch()
 })

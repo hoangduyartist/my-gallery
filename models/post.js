@@ -12,7 +12,6 @@ const postSchema = new mongoose.Schema({
     description: {
         type: String,
         default: 'Caption description'
-        
     },
     content : {
     },

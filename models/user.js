@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         // minlength : [4, 'at least 4 char']
     },
-    avatar: {type:String, default:'images/ava-default.jpg'},
+    avatar: {type:String, required:true, default:'images/ava-default.jpg'},
     age: {
         type: Number,
         //required: true
