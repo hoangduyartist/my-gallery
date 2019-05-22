@@ -1,0 +1,175 @@
+<style>
+        #UpdateStatus,
+        #AddPhotos,
+        #CreateAlbum {
+            padding: 10px;
+        }
+
+        #UpdateStatus img,
+        #AddPhotos img,
+        #CreateAlbum img {
+            margin: 30px 0;
+        }
+
+        .post-ava-col {
+            padding-top: 10px !important;
+            padding-bottom: 10px !important
+        }
+
+        .share-icons {
+            letter-spacing: 7px
+        }
+
+        #post-form-multiple .row {
+            margin-bottom: 0px;
+        }
+
+        #post-form-multiple textarea {
+            margin-bottom: 0;
+            padding-bottom: 10px;
+        }
+
+        #post-form-multiple #global-msg {
+            margin: 0;
+            padding: 10px;
+            background: #0089ec;
+            color: #e0e0e0;
+            border-radius: 10px;
+            margin-top: 4px;
+        }
+    </style>
+    <div id="post-form-multiple" class="">
+        <ul class="tabs tab-profile z-depth-1 light-blue" style="width: 100%;">
+            <li class="tab col s3"><a class="white-text waves-effect waves-block waves-light active"
+                    href="#UpdateStatus">
+                    <i class="mdi-editor-border-color"></i> Update Status</a>
+            </li>
+            <li class="tab col s3"><a class="white-text" href="#AddPhotos">
+                    <i class="mdi-image-camera-alt"></i> AddPhotos</a>
+            </li>
+            <li class="tab col s3"><a class="white-text" href="#CreateAlbum">
+                    <i class="mdi-image-photo-album"></i> Create Album</a>
+            </li>
+            <div class="indicator" style="right: 433px; left: 0px;"></div>
+        </ul>
+        <p id="global-msg"><%= typeof msg != 'undefined' ? msg : '' %></p>
+        <!-- UpdateStatus-->
+        <div id="UpdateStatus" class="tab-content col s12  grey lighten-4" style="display: block;">
+            <div style="margin-bottom:0px" class="row">
+                <div style="" class="col s2">
+                    <img src="http://demo.geekslabs.com/materialize/v2.3/layout03/images/avatar.jpg" alt=""
+                        class="circle responsive-img valign profile-image-post">
+                </div>
+                <div class="input-field col s10">
+                    <textarea id="textarea" row="2" class="materialize-textarea"></textarea>
+                    <label for="textarea" class="">What's on your mind?</label>
+                </div>
+            </div>
+            <div style="margin-bottom:0px" class="row valign">
+                <div class="col s12 m6 share-icons">
+                    <a href="#"><i class="material-icons">linked_camera</i></a>
+                    <!-- <a href="#"><i class="material-icons">local_offer</i></a> -->
+                    <a href="#"><i class="material-icons">person_pin</i></a>
+                    <a href="#"><i class="material-icons">loyalty</i></a>
+                    <a href="#"><i class="material-icons">mood</i></a>
+                    <a href="#"><i class="material-icons">location_on</i></a>
+                </div>
+                <div class="col s12 m6 right-align">
+                    <!-- Dropdown Trigger -->
+                    <a class="dropdown-button btn" href="#" data-activates="profliePost"><i
+                            class="mdi-action-language"></i> Public</a>
+                    <ul id="profliePost" class="dropdown-content">
+                        <li><a href="#!"><i class="mdi-action-language"></i> Public</a></li>
+                        <li><a href="#!"><i class="mdi-action-face-unlock"></i> Friends</a></li>
+                        <li><a href="#!"><i class="mdi-action-lock-outline"></i> Only Me</a></li>
+                    </ul>
+                    <!-- Dropdown Structure -->
+                    <a class="waves-effect waves-light btn"><i class="mdi-maps-rate-review left"></i>Post</a>
+                </div>
+            </div>
+        </div>
+        <!-- AddPhotos -->
+        <div id="AddPhotos" class="tab-content col s12  grey lighten-4" style="display: none;">
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+
+                <div class="row">
+                    <div class="col s2">
+                        <img src="http://demo.geekslabs.com/materialize/v2.3/layout03/images/avatar.jpg" alt=""
+                            class="circle responsive-img valign profile-image-post">
+                    </div>
+                    <div class="input-field col s10">
+                        <textarea id="textarea" row="2" class="materialize-textarea"
+                            name="description"></textarea>
+                        <label for="textarea" class="">Share your favorites photos!</label>
+                        <div class="file-field input-field">
+                            <div style="border-radius:22px" class="btn btn-small">
+                                <i class="material-icons">linked_camera</i>
+                                <input name="myImage" type="file">
+                            </div>
+                            <!-- <i class="btn material-icons">linked_camera</i> -->
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Your image"
+                                    value="<%= typeof msg != 'undefined' ? msg : '' %>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m6 share-icons">
+                        <a href="#"><i class="material-icons">linked_camera</i></a>
+                        <a href="#"><i class="material-icons">person_pin</i></a>
+                        <a href="#"><i class="material-icons">loyalty</i></a>
+                        <a href="#"><i class="material-icons">mood</i></a>
+                        <a href="#"><i class="material-icons">location_on</i></a>
+                    </div>
+                    <div class="col s12 m6 right-align">
+                        <!-- Dropdown Trigger -->
+                        <a class="dropdown-button btn" href="#" data-activates="profliePost2"><i
+                                class="mdi-action-language"></i> Public</a>
+                        <ul id="profliePost2" class="dropdown-content">
+                            <li><a href="#!"><i class="mdi-action-language"></i> Public</a></li>
+                            <li><a href="#!"><i class="mdi-action-face-unlock"></i> Friends</a></li>
+                            <li><a href="#!"><i class="mdi-action-lock-outline"></i> Only Me</a></li>
+                        </ul>
+                        <!-- Dropdown Structure -->
+                        <!-- <a class="waves-effect waves-light btn"><i class="mdi-maps-rate-review left"></i>Post</a> -->
+                        <button type="submit" class="btn">post<i class="mdi-maps-rate-review left"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- CreateAlbum -->
+        <div id="CreateAlbum" class="tab-content col s12  grey lighten-4" style="display: none;">
+            <div class="row">
+                <div class="col s2">
+                    <img src="http://demo.geekslabs.com/materialize/v2.3/layout03/images/avatar.jpg" alt=""
+                        class="circle responsive-img valign profile-image-post">
+                </div>
+                <div class="input-field col s10">
+                    <textarea id="textarea" row="2" class="materialize-textarea"></textarea>
+                    <label for="textarea" class="">Create awesome album.</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6 share-icons">
+                    <a href="#"><i class="material-icons">linked_camera</i></a>
+                    <a href="#"><i class="material-icons">person_pin</i></a>
+                    <a href="#"><i class="material-icons">loyalty</i></a>
+                    <a href="#"><i class="material-icons">mood</i></a>
+                    <a href="#"><i class="material-icons">location_on</i></a>
+                </div>
+                <div class="col s12 m6 right-align">
+                    <!-- Dropdown Trigger -->
+                    <a class="dropdown-button btn" href="#" data-activates="profliePost3"><i
+                            class="mdi-action-language"></i> Public</a>
+                    <ul id="profliePost3" class="dropdown-content">
+                        <li><a href="#!"><i class="mdi-action-language"></i> Public</a></li>
+                        <li><a href="#!"><i class="mdi-action-face-unlock"></i> Friends</a></li>
+                        <li><a href="#!"><i class="mdi-action-lock-outline"></i> Only Me</a></li>
+                    </ul>
+                    <!-- Dropdown Structure -->
+                    <a class="waves-effect waves-light btn"><i class="mdi-maps-rate-review left"></i>Post</a>
+                </div>
+            </div>
+        </div>
+    </div>

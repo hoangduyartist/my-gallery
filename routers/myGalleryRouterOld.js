@@ -1,12 +1,7 @@
 const express = require("express");
 const app = express.Router();
-const mongoose = require("mongoose");
 
 const User = require('../models/user');
-const userService = require('./../services/userService');
-const imgService = require('./../services/imgService');
-const postService = require('./../services/postService');
-
 
 let images = [];
 let posts = [];
@@ -50,60 +45,63 @@ app.get('/logout', function (req, res) {
 });
 app.get('/login', function (req, res) {
     // res.writeHead(200, {'Content-Type': 'text/html'});
-    return res.render('pages/authenticate');
+    return res.render('authenticate');
     res.render('authenticate', { err: '', isReg: false, loginSuccess: true });
 });
-app.post('/login', function (req, res, next) {
+app.post('/login', function (req, res) {
+    // const user = require('../models/user');
+    User.findOne({ name: req.body.name }, (e, userFound) => {
+        if (e) {
+            console.log(e);
+            return res.status(500).send(e);
+        }
+        if (!userFound) {
+            // return res.status(404).send('User not found');
+            return res.render('authenticate', { status: 'login', msg: 'User is not found !' });
+        }
+        const bcrypt = require('bcrypt');
+        bcrypt.compare(req.body.password, userFound.password, (e1, rs) => {
+            if (rs == true) {
+                // return res.send('Correct pass');
+                req.session.userID = userFound._id;
+                req.session.userProfile = userFound;
+                currentUser = userFound._id;
 
-    userService.authenticate(req.body)
-        .then(data => {
-            if (data.user) {
-                req.session.userID = data.session;
-                req.session.userProfile = data.user;
-                // currentUser = userFound._id;
-                return res.redirect('/myHome');
-                return res.send(data);
+                return res.redirect('/');
+
             }
-
-            return res.render('pages/authenticate', { status: 'login', msg: data.msg });
+            // return res.send('Incorrect pass');
+            return res.render('authenticate', { status: 'login', msg: 'Password is incorrect !' });
         })
-        .catch(err => next(err))
+    });
+
 });
 app.post('/register', function (req, res) {
 
-    userService.create(req.body)
-        .then((data) => {
-            if (data.newUser) {
-                return res.render('pages/authenticate', { status: 'register', msg: data.msg });
-            } else {
-                console.log(data);
-                return res.render('pages/authenticate', { status: 'register', msg: data.msg });
-            }
-        })
-        .catch(err => console.log(err))
+    // const user = require('../models/user');
+    let mongoose = require('mongoose');
+    let mUser = new User();
+    mUser._id = new mongoose.Types.ObjectId();
+    mUser.fullname = req.body.fullname;
+    mUser.name = req.body.name;
+    mUser.password = req.body.password;
+    mUser.save((e, rs) => {
+        if (!e) {
+            console.log('Register new usr ' + rs);
+            return res.render('authenticate', { status: 'register', msg: 'Register successful !' });
+        }
+
+        else {
+            console.log(e.message);
+            return res.render('authenticate', { status: 'register', msg: 'Register failed !' });
+        }
+    });
 
 });
 
 app.get('/myhome', (req, res) => {
-    let fetch = async function (){
-        await imgService.fetchWithUser(req.session.userID)
-        .then(data=>{
-            images=data.images;
-        })
-        .catch(err=>console.log(err))
-        // return res.render('components/userhome/userHome', {user: req.session.userProfile, msg: 'loaded', images: images, posts: posts });
-
-        await postService.fetchWithUser(req.session.userID)
-        .then(data=>{
-            posts=data.posts;
-        })
-        .catch(err=>console.log(err))
-        return res.render('components/userhome/userHome', {user: req.session.userProfile, msg: 'loaded', images: images, posts: posts });
-    }
-    fetch();
-    
+    res.render('main', { msg: 'loaded', images: images, posts: posts })
 });
-
 
 let path = require("path");
 //upfile with multer
@@ -144,47 +142,50 @@ function checkFileType(file, cb) {
 //end functions
 
 app.post('/upload', (req, res) => {
-
     upload(req, res, (err) => {
         // console.log(path);
         if (err) {
-            res.render('components/userhome/userHome', { msg: err });
+            res.render('main', { msg: err });
         } else {
             if (req.file == undefined) {
-                res.render('components/userhome/userHome', {
+                res.render('main', {
                     msg: 'Error: No File Selected!'
                 });
             } else {
-                // console.log(req.file);
+                console.log(req.file);
                 //UI
                 let mongoose = require("mongoose");
                 let imgUI = {
 
                     _id: mongoose.Types.ObjectId(),
-                    userID: req.session.userID,
                     path: `uploads/${req.file.filename}`,
                     name: req.file.filename,
                     description: req.body.description
                 }
                 images.push(imgUI);
+                // console.log(images);
                 //end UI
 
-                imgService.create(imgUI)
-                    .then(data => {
-                        if (data.newImg) {
-                            
-                            res.render('components/userhome/userHome', {
-                                user: req.session.userProfile,
-                                msg: 'File Uploaded!',
-                                file: `uploads/${req.file.filename}`,
-                                images: images
-                            });
-                            console.log('upload done');
-                        } else {
-                            console.log('upload failed');
-                        }
-                    })
-                    .catch(err => console.log(err))
+                //insert in database
+                // const user = require('./models/user');
+                // let mUser = new user();
+                // mUser.fullname=req.body.fullname;
+                // mUser.name=req.body.name;
+                // mUser.password=req.body.password;
+                // mUser.save((e, rs)=>{
+                //     if(!e)
+                //     //  res.send(rs);
+                //     res.render('authenticate', {err: '', isReg:true, regSuccess:true });
+                //     else{
+                //         console.log(e.message);
+                //         res.render('authenticate', {err: e, isReg:true, regSuccess:false });
+                //     } 
+                // });
+                res.render('main', {
+                    msg: 'File Uploaded!',
+                    file: `uploads/${req.file.filename}`,
+                    images: images
+                });
                 // res.redirect('/myhome');
             }
         }
@@ -192,10 +193,10 @@ app.post('/upload', (req, res) => {
 });
 // /del-img/5cda48ec0d896f2fa08b7bb0
 app.get('/del-img/:imgID.:key', (req, res) => {
-    
+
     // delete file on server
     let fs = require("fs");
-
+    // console.log(images[req.params.key].path);
     fs.stat(`./public/${images[req.params.key].path}`, function (err, stats) {
         // console.log(stats);//here we got all information of file in stats variable
         if (err) {
@@ -205,16 +206,12 @@ app.get('/del-img/:imgID.:key', (req, res) => {
             if (err) return console.log(err);
             //  delete UI
             images.splice(req.params.key, 1);
+            //  setTimeout(()=>{       
+            //     },3000)
             // del in database here
             // res.render('main', { msg: 'loaded', images: images }) //req in address is NOT changed
-            imgService.del(req.params.imgID)
-            .then(data=>{
-                // console.log('file deleted successfully');
-                console.log(data.msg);
-                return res.redirect('/myhome');
-            })
-            .catch(err=>console.log(err))
-            
+            console.log('file deleted successfully');
+            return res.redirect('/myhome');
         });
     });
 
@@ -222,6 +219,7 @@ app.get('/del-img/:imgID.:key', (req, res) => {
 })
 app.get('/share-img/:imgID.:key', (req, res) => {
 
+    // delete file on server
     let fs = require("fs");
     // console.log(images[req.params.key].path);
     fs.stat(`./public/${images[req.params.key].path}`, function (err, stats) {
@@ -230,32 +228,15 @@ app.get('/share-img/:imgID.:key', (req, res) => {
             return console.error(err);
         }
         let post = {
-
-            _id: mongoose.Types.ObjectId(),
-            userID: req.session.userID,
-            type : 'image',
-            description : 'you have shared an image.',
-            content: images[req.params.key],
-            //  {
-            //     object: 'image',
-            //     image: images[req.params.key].path,
-            //     description: images[req.params.key].description
-            // }
+            content: {
+                object : 'image',
+                image : images[req.params.key].path,
+                description : images[req.params.key].description
+            }
         }
         posts.push(post);
-
-        postService.createImg(post)
-        .then(data=>{
-            if(data.newPost){
-                console.log(data.msg);
-                res.redirect('/myhome');
-            }else {
-
-            }
-        })
-        .catch(err=>console.log(err))
-        // console.log('img shared successfully');
-        // res.redirect('/myhome');
+        console.log('img shared successfully');
+        res.redirect('/myhome');
     });
 
     // res.send('deleted '+req.params.imgID+'with key '+req.params.key);

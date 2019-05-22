@@ -28,14 +28,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div style="">
 		<% if(typeof status != 'undefined') { %>
 		<% if(status == 'register') { %>
-		<% if(msg == 'Register failed !') { %>
-		<h1
-			style="color:#a94442!important; background-color: rgba(20, 21, 22, 0.52); padding:10px 10px; text-align:center;">
-			Register failed. Click <span id="re-reg"><a href="#signup-agile">here</a></span> to register again !</h1>
-		<% } else  { %>
-		<h1
+		<% if(msg == 'Register successful !') { %>
+			<h1
 			style="color:#09ad09!important; background-color: rgba(20, 21, 22, 0.52); padding:10px 10px; text-align:center;">
 			Register success</h1>
+			
+		<% } else  { %>
+			<h1
+			style="color:#a94442!important; background-color: rgba(20, 21, 22, 0.52); padding:10px 10px; text-align:center;">
+			<%=msg %>. Click <span id="re-reg"><a href="#signup-agile">here</a></span> to register again !</h1>
 		<% } %>
 		<% } %>
 		<% } %>

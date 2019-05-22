@@ -16,7 +16,7 @@
 <style>
     .imgCard-tools {
         text-align: right;
-        letter-spacing: 8px;
+        letter-spacing: 4px;
     }
     .imgCard-tools a {
         cursor: pointer;
@@ -38,8 +38,9 @@
             <p>Here is some default descriptions.</p>
             <p>Here is some default descriptions.</p>
             <div class="imgCard-tools">
-                <a class=""><i style="color:orange;" class="material-icons">edit</i></a>
-                <a class="" href="/del-img/<%= img._id %>.<%= key %>"><i style="color:red;" class="material-icons">delete_forever</i></a>
+                <a class=""><i style="color:orange;" class="material-icons small">edit</i></a>
+                <a class="" href="/del-img/<%= img._id %>.<%= key %>"><i style="color:red;" class="material-icons small">delete_forever</i></a>
+                <a class="" href="/share-img/<%= img._id %>.<%= key %>"><i style="color:#0089ec;" class="material-icons small">launch</i></a>
             </div>
 
         </div>

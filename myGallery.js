@@ -1,20 +1,23 @@
+// package.json // "test": "echo \"Error: no test specified\" && exit 1"
 //basic depens
 const express = require('express');
 const app = express();
 const server = require("http").Server(app);
 //basic depens
-
 const io = require("socket.io")(server); //socket.io
 var mongoose = require("mongoose"); //mongoDB DOM
 const bodyParser = require("body-parser");
 var session = require("express-session");
 const path = require("path");
+const engine = require("ejs-locals");
+
 const galleryRouters = require('./routers/myGalleryRouter');
 
 //global store
 
 //end global store
 app.use(express.static("public")); //auto access /public in client
+app.engine("ejs",engine);
 app.set("view engine", "ejs");
 app.set("views", "./views");
 app.use(bodyParser.json()); //using bodypaser as middleWave
@@ -38,15 +41,6 @@ mongoose.connect(urlMongo, { useNewUrlParser: true }).then(
     .catch(connectError => connectError);
 
 
-app.get('/testusr', (req, res)=>{
-    const user = require('./models/user');
-    user.find((e,rs)=>{
-        if (e) return res.status(500).send(e)
-        // send the list of all people
-        return res.status(200).send(rs);
-    });
-});
-
-// app.get('/inc', (req,res)=>{
-//     res.render('chat1');
-// })
+app.get('/testUI', (req,res)=>{
+    res.render('components/cards/interCard');
+})
