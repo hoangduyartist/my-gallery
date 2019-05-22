@@ -4,7 +4,7 @@
   "description": "project thay tuan",
   "main": "myGallery.js",
   "scripts": {
-    "start": "nodemon myGallery"
+    "start": "node myGallery"
   },
   "author": "",
   "license": "ISC",
