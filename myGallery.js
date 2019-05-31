@@ -28,10 +28,10 @@ app.use(session({ secret: "secretSessionTest", resave: false, saveUninitialized:
 app.use(galleryRouters);
 
 let PORT = process.env.PORT || 3000;
-server.listen(PORT,'127.0.0.1');
+server.listen(PORT);
 
 // let urlMongo = "mongodb://localhost:27017/node_chat";
-let urlMongo = process.env.MONGO_URI || "mongodb+srv://hoangduy:hoangduy@cluster0-a0ada.mongodb.net/test?retryWrites=true";
+let urlMongo = process.env.MONGODB_URI || "mongodb+srv://hoangduy:hoangduy@cluster0-a0ada.mongodb.net/test?retryWrites=true";
 mongoose.Promise = global.Promise;
 mongoose.connect(urlMongo, { useNewUrlParser: true }).then(
     (rs) => {
